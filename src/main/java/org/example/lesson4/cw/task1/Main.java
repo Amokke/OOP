@@ -1,6 +1,7 @@
 package org.example.lesson4.cw.task1;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -21,7 +22,7 @@ public class Main {
             listNum.add(i);
         }
         System.out.println("calculat.sum(listNum) = " + calculat.sum(listInt));
-         */
+
         LRUCache<Employee> lruCache = new LRUCache<Employee>(4);
         List<Employee> employees = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -31,5 +32,18 @@ public class Main {
             lruCache.addElement(employee);
             System.out.println("lruCache.getAllElement() = " + lruCache.getAllElement());
         }
+        */
+        Calculat calculat = new Calculat();
+        String str = "6.43";
+        String str1 = "8.0";
+        String str2 = "5";
+        List<Double> arrDouble1 = new ArrayList<>(Arrays.asList(0.1, 2.3, 4.5));
+        List<Integer> arrInteger = new ArrayList<>(Arrays.asList(1, 2, 3));
+
+        System.out.println("calculat.multy(test1) = " + calculat.multi(arrDouble1));
+        System.out.println("calculat.division(test2) = " + calculat.divis(arrInteger));
+        System.out.println("calculat.translateBinary(str) = " + calculat.binary(str));
+        System.out.println("calculat.translateBinary(str1) = " + calculat.binary(str1));
+        System.out.println("calculat.translateBinary(str2) = " + calculat.binary(str2));
     }
 }

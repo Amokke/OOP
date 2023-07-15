@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3fc653f9-c6fd-415c-b5c2-e1daf3d3b01d" name="Changes" comment="Add Classwork lesson4">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson4/cw/task1/Calculat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson4/cw/task1/Calculat.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/controller/Controller.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/data/Student.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/data/Teacher.java" afterDir="false" />
