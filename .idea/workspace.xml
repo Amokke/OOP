@@ -6,6 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="3fc653f9-c6fd-415c-b5c2-e1daf3d3b01d" name="Changes" comment="Add Classwork lesson4">
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson4/cw/task1/Calculat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson4/cw/task1/Calculat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/controller/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/data/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/data/Teacher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/data/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/service/DataService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson5/cw/task1/view/StudentView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +23,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -22,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="lesson4" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -65,6 +74,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
