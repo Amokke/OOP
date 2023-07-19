@@ -1,0 +1,392 @@
+Index: src/main/java/org/example/lesson6/cw/Main.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/Main.java b/src/main/java/org/example/lesson6/cw/Main.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/Main.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,33 +0,0 @@
+-package org.example.lesson6.cw;
+-
+-import org.example.lesson6.cw.book.Book;
+-import org.example.lesson6.cw.book.ElectronBook;
+-import org.example.lesson6.cw.formatter.Formatter;
+-import org.example.lesson6.cw.formatter.JSONFormatter;
+-import org.example.lesson6.cw.genre.GenreBook;
+-import org.example.lesson6.cw.search.Library;
+-
+-import java.util.Arrays;
+-
+-public class Main {
+-    /*a) Book - должен отвечать только за хранение информации о книге. (единственная ответственность -> Single Responsibility Principle)
+-    b)	Genre - должен хранить информацию о жанрах книг. (открыт для расширения, но закрыт для изменения -> Open-Closed Principle)
+-    c)	ElectronBook - должна иметь формат чтения и размер. (Принцип подстановки Барбары Лисков -> Liskov Substitution Principle)
+-    d)	Searchable - должен производить поиск по авторам книг. (Принцип разделения интерфейса -> Interface Segregation Principle)
+-    e)	Formatter - должен выводить информацию в различных форматах(без формата,json,html) - заглушки (Принцип инверсии зависимостей -> Dependency Inversion Principle) */
+-    public static void main(String[] args) {
+-        Library library = new Library(Arrays.asList(
+-                new Book("Властелин колец", "Толкиен", 1984, new GenreBook("tyusd")),
+-                new Book("Гарри Поттер", "rty", 1994, new GenreBook("bvnbvcn")),
+-                new Book("qwe", "rty", 2005, new GenreBook("gyuhq")),
+-                new ElectronBook("iop", "Толкиен", 2005, new GenreBook("gyuhq"), "pdf", 125),
+-                new ElectronBook("zxc", "vbn", 2005, new GenreBook("bvnbvcn"), "pdf", 200)
+-        ));
+-        System.out.println("library.booksSearchByAuthor(\"Толкиен\") = " + library.booksSearchByAuthor("Толкиен"));
+-        System.out.println("library.booksSearchByAuthor(\"rty\") = " + library.booksSearchByAuthor("rty"));
+-        Formatter formatter = new JSONFormatter();
+-
+-        formatter.toFormat((ElectronBook) library.getBooks().get(3));
+-        formatter.toFormat((ElectronBook) library.getBooks().get(4));
+-    }
+-}
+Index: src/main/java/org/example/lesson6/cw/formatter/Formatter.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/formatter/Formatter.java b/src/main/java/org/example/lesson6/cw/formatter/Formatter.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/formatter/Formatter.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,7 +0,0 @@
+-package org.example.lesson6.cw.formatter;
+-
+-import org.example.lesson6.cw.book.ElectronBook;
+-
+-public interface Formatter {
+-    public void toFormat(ElectronBook book);
+-}
+Index: src/main/java/org/example/lesson6/cw/genre/GenreBook.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/genre/GenreBook.java b/src/main/java/org/example/lesson6/cw/genre/GenreBook.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/genre/GenreBook.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,14 +0,0 @@
+-package org.example.lesson6.cw.genre;
+-
+-public class GenreBook implements Genre {
+-    private String genreName;
+-
+-    public GenreBook(String genreName) {
+-        this.genreName = genreName;
+-    }
+-
+-    @Override
+-    public String toGenre() {
+-        return genreName;
+-    }
+-}
+Index: src/main/java/org/example/lesson6/cw/book/ElectronBook.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/book/ElectronBook.java b/src/main/java/org/example/lesson6/cw/book/ElectronBook.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/book/ElectronBook.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,35 +0,0 @@
+-package org.example.lesson6.cw.book;
+-
+-import org.example.lesson6.cw.genre.GenreBook;
+-
+-public class ElectronBook extends Book {
+-    private String format;
+-    private Integer size;
+-
+-    public ElectronBook(String name, String author, int year, GenreBook genre, String format, Integer size) {
+-        super(name, author, year, genre);
+-        this.format = format;
+-        this.size = size;
+-    }
+-
+-    public ElectronBook() {}
+-
+-    public String getFormat() {
+-        return format;
+-    }
+-
+-    public Integer getSize() {
+-        return size;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return "ElectronBook{" +
+-                "name='" + super.getName() + '\'' +
+-                ", author='" + super.getAuthor() + '\'' +
+-                ", year=" + super.getYear() +
+-                "format='" + format + '\'' +
+-                ", size=" + size +
+-                '}';
+-    }
+-}
+Index: src/main/java/org/example/lesson6/cw/search/Searchable.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/search/Searchable.java b/src/main/java/org/example/lesson6/cw/search/Searchable.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/search/Searchable.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,11 +0,0 @@
+-package org.example.lesson6.cw.search;
+-
+-
+-import org.example.lesson6.cw.book.Book;
+-
+-import java.util.List;
+-
+-
+-public interface Searchable {
+-    public List<Book> booksSearchByAuthor(String author);
+-}
+Index: src/main/java/org/example/lesson6/cw/formatter/HTMLFormatter.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/formatter/HTMLFormatter.java b/src/main/java/org/example/lesson6/cw/formatter/HTMLFormatter.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/formatter/HTMLFormatter.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,10 +0,0 @@
+-package org.example.lesson6.cw.formatter;
+-
+-import org.example.lesson6.cw.book.ElectronBook;
+-
+-public class HTMLFormatter implements Formatter {
+-    @Override
+-    public void toFormat(ElectronBook book) {
+-        System.out.println("Форматировали " + book + " в HTML");
+-    }
+-}
+Index: src/main/java/org/example/lesson6/cw/genre/Genre.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/genre/Genre.java b/src/main/java/org/example/lesson6/cw/genre/Genre.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/genre/Genre.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,5 +0,0 @@
+-package org.example.lesson6.cw.genre;
+-
+-public interface Genre {
+-    public String toGenre();
+-}
+Index: src/main/java/org/example/lesson6/cw/search/Library.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/search/Library.java b/src/main/java/org/example/lesson6/cw/search/Library.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/search/Library.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,30 +0,0 @@
+-package org.example.lesson6.cw.search;
+-
+-import org.example.lesson6.cw.book.Book;
+-
+-import java.util.ArrayList;
+-import java.util.List;
+-
+-public class Library implements Searchable {
+-    private List<Book> books;
+-
+-    public Library(List<Book> books) {
+-        this.books = books;
+-    }
+-
+-    public Library() {
+-    }
+-
+-    @Override
+-    public List<Book> booksSearchByAuthor(String author) {
+-        List<Book> result = new ArrayList<>();
+-        for (Book book : books) {
+-            if (book.getAuthor().equals(author)) result.add(book);
+-        }
+-        return result;
+-    }
+-
+-    public List<Book> getBooks() {
+-        return books;
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/org/example/lesson6/cw/book/Book.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/book/Book.java b/src/main/java/org/example/lesson6/cw/book/Book.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/book/Book.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,41 +0,0 @@
+-package org.example.lesson6.cw.book;
+-
+-import org.example.lesson6.cw.genre.GenreBook;
+-
+-public class Book {
+-    private String name;
+-    private String author;
+-    private int year;
+-    private GenreBook genre;
+-
+-    public Book(String name, String author, int year, GenreBook genre) {
+-        this.name = name;
+-        this.author = author;
+-        this.year = year;
+-        this.genre = genre;
+-    }
+-
+-    public Book() {
+-    }
+-
+-    public String getName() {
+-        return name;
+-    }
+-
+-    public String getAuthor() {
+-        return author;
+-    }
+-
+-    public int getYear() {
+-        return year;
+-    }
+-
+-    @Override
+-    public String toString() {
+-        return "Book{" +
+-                "name='" + name + '\'' +
+-                ", author='" + author + '\'' +
+-                ", year=" + year +
+-                '}';
+-    }
+-}
+\ No newline at end of file
+Index: src/main/java/org/example/lesson6/cw/formatter/JSONFormatter.java
+===================================================================
+diff --git a/src/main/java/org/example/lesson6/cw/formatter/JSONFormatter.java b/src/main/java/org/example/lesson6/cw/formatter/JSONFormatter.java
+deleted file mode 100644
+--- a/src/main/java/org/example/lesson6/cw/formatter/JSONFormatter.java	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ /dev/null	(revision d3c44a424369f3484209f1466c554487a8c4d942)
+@@ -1,10 +0,0 @@
+-package org.example.lesson6.cw.formatter;
+-
+-import org.example.lesson6.cw.book.ElectronBook;
+-
+-public class JSONFormatter implements Formatter{
+-    @Override
+-    public void toFormat(ElectronBook book) {
+-        System.out.println("Форматировали " + book + " в JSON");
+-    }
+-}
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"3fc653f9-c6fd-415c-b5c2-e1daf3d3b01d\" name=\"Changes\" comment=\"Add Homework lesson5\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/Main.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/book/Book.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/book/ElectronBook.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/Formatter.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/HTMLFormatter.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/JSONFormatter.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/genre/Genre.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/genre/GenreBook.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/search/Library.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/search/Searchable.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_07_2023_20_48_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_07_2023_20_48__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_07_2023_20_09_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_07_2023_20_09__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Interface\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"lesson5\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2SQqgVckFFVQPiBh33vLpJeOhfY\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"org.example.lesson4.cw.task1\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.org.example.lesson6.cw.Main\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.lesson4.cw.task1.Main\" />\r\n      <module name=\"OOP\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.lesson4.cw.task1.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"View\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.lesson5.hw.view.View\" />\r\n      <module name=\"OOP\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.lesson5.hw.view.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"org.example.lesson6.cw.Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"org.example.lesson6.cw.Main\" />\r\n      <module name=\"OOP\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"org.example.lesson6.cw.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.org.example.lesson6.cw.Main\" />\r\n        <item itemvalue=\"Application.View\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"3fc653f9-c6fd-415c-b5c2-e1daf3d3b01d\" name=\"Changes\" comment=\"\" />\r\n      <created>1689089268328</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1689089268328</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"Add Classwork lesson4\">\r\n      <created>1689345501594</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1689345501594</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"Add Classwork lesson4\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Add Classwork lesson4\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d3c44a424369f3484209f1466c554487a8c4d942)
++++ b/.idea/workspace.xml	(date 1689784303245)
+@@ -4,22 +4,20 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="3fc653f9-c6fd-415c-b5c2-e1daf3d3b01d" name="Changes" comment="Add Homework lesson5">
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/Main.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/book/Book.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/book/ElectronBook.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/Formatter.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/HTMLFormatter.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/JSONFormatter.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/genre/Genre.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/genre/GenreBook.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/search/Library.java" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/search/Searchable.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_07_2023_20_48_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_08_07_2023_20_48__Changes_.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_07_2023_20_09_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_07_2023_20_09__Changes_.xml" beforeDir="false" />
++    <list default="true" id="3fc653f9-c6fd-415c-b5c2-e1daf3d3b01d" name="Changes" comment="Add Classwork lesson4">
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_07_2023_21_53__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_07_2023_21_53__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_07_2023_21_54__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_07_2023_21_54__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/Main.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/book/Book.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/book/ElectronBook.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/Formatter.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/HTMLFormatter.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/formatter/JSONFormatter.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/genre/Genre.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/genre/GenreBook.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/search/Library.java" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/lesson6/cw/search/Searchable.java" beforeDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -37,10 +35,11 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="lesson5" />
++        <entry key="$PROJECT_DIR$" value="lesson6" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++    <option name="RESET_MODE" value="MIXED" />
+   </component>
+   <component name="ProjectId" id="2SQqgVckFFVQPiBh33vLpJeOhfY" />
+   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+@@ -64,7 +63,7 @@
+       <recent name="org.example.lesson4.cw.task1" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.org.example.lesson6.cw.Main">
++  <component name="RunManager" selected="Application.View">
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="org.example.lesson4.cw.task1.Main" />
+       <module name="OOP" />
+@@ -79,24 +78,11 @@
+       </method>
+     </configuration>
+     <configuration name="View" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="org.example.lesson5.hw.view.View" />
+-      <module name="OOP" />
+-      <extension name="coverage">
+-        <pattern>
+-          <option name="PATTERN" value="org.example.lesson5.hw.view.*" />
+-          <option name="ENABLED" value="true" />
+-        </pattern>
+-      </extension>
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+-    <configuration name="org.example.lesson6.cw.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="org.example.lesson6.cw.Main" />
++      <option name="MAIN_CLASS_NAME" value="org.example.lesson6.hw.view.View" />
+       <module name="OOP" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="org.example.lesson6.cw.*" />
++          <option name="PATTERN" value="org.example.lesson6.hw.view.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -106,7 +92,6 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Application.org.example.lesson6.cw.Main" />
+         <item itemvalue="Application.View" />
+         <item itemvalue="Application.Main" />
+         <item itemvalue="Application.Main" />
+@@ -138,7 +123,19 @@
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State />
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="main" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
+           </value>
+         </entry>
+       </map>

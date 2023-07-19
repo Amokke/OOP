@@ -1,4 +1,4 @@
-package org.example.lesson5.hw.data;
+package org.example.lesson6.hw.data;
 
 public class Complex {
     public double a;
@@ -9,7 +9,6 @@ public class Complex {
         b = num2;
     }
 
-    @Override
     public String toString() {
         return String.format("%f + %fi", a, b);
     }

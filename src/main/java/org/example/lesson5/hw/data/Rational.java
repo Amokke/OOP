@@ -1,4 +1,4 @@
-package org.example.lesson5.hw.data;
+package org.example.lesson6.hw.data;
 
 public class Rational {
     public int num1;
@@ -9,7 +9,6 @@ public class Rational {
         this.num2 = num2;
     }
 
-    @Override
     public String toString() {
         return num1 + "/" + num2;
     }
