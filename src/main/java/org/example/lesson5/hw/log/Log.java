@@ -1,4 +1,4 @@
-package org.example.lesson6.hw.log;
+package org.example.lesson5.hw.log;
 
 import java.util.ArrayList;
 import java.util.Arrays;

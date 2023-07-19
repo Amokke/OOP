@@ -1,6 +1,6 @@
-package org.example.lesson6.hw.service;
+package org.example.lesson5.hw.service;
 
-import org.example.lesson6.hw.data.Rational;
+import org.example.lesson5.hw.data.Rational;
 
 public class CalcRat {
     public Rational sum(Rational number, Rational number2){

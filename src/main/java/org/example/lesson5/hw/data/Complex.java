@@ -1,4 +1,4 @@
-package org.example.lesson6.hw.data;
+package org.example.lesson5.hw.data;
 
 public class Complex {
     public double a;

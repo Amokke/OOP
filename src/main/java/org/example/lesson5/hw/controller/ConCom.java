@@ -1,8 +1,8 @@
-package org.example.lesson6.hw.controller;
+package org.example.lesson5.hw.controller;
 
-import org.example.lesson6.hw.data.Complex;
-import org.example.lesson6.hw.log.Log;
-import org.example.lesson6.hw.service.CalcCom;
+import org.example.lesson5.hw.data.Complex;
+import org.example.lesson5.hw.log.Log;
+import org.example.lesson5.hw.service.CalcCom;
 
 import java.util.Scanner;
 
@@ -63,6 +63,7 @@ public class ConCom {
             Complex number1 = creatComplex();
             log.addLog(String.format("Введено первое число = %s", number1));
             while (flag2) {
+                scanner.nextLine();
                 System.out.println("Выберете действие(+, -, *, /): ");
                 String doing1 = scanner.nextLine();
                 log.addLog(String.format("Выбрано действие = %s", doing1));

@@ -1,8 +1,8 @@
-package org.example.lesson6.hw.controller;
+package org.example.lesson5.hw.controller;
 
-import org.example.lesson6.hw.data.Rational;
-import org.example.lesson6.hw.log.Log;
-import org.example.lesson6.hw.service.CalcRat;
+import org.example.lesson5.hw.data.Rational;
+import org.example.lesson5.hw.log.Log;
+import org.example.lesson5.hw.service.CalcRat;
 
 
 import java.util.Scanner;
@@ -63,6 +63,7 @@ public class ConRac {
             Rational rational1 = createRacial();
             log.addLog(String.format("Введено первое число = %s", rational1));
             while (flag2) {
+                scanner.nextLine();
                 System.out.println("Выберете действие(+, -, *, /): ");
                 String doing1 = scanner.nextLine();
                 log.addLog(String.format("Выбрано действие = %s", doing1));
@@ -102,6 +103,7 @@ public class ConRac {
                     log.addLog(String.format("%s : %s = %s" + "\n", rational1, rational2, calculate.div(rational1, rational2)));
                 }
             }
+            doing = null;
             System.out.println("Продолжим работу?(1 - да, 2 - нет)");
             int n3 = scanner.nextInt();
             if (n3 != 1) {

@@ -1,6 +1,6 @@
-package org.example.lesson6.hw.service;
+package org.example.lesson5.hw.service;
 
-import org.example.lesson6.hw.data.Complex;
+import org.example.lesson5.hw.data.Complex;
 
 public class CalcCom {
 

@@ -1,8 +1,8 @@
-package org.example.lesson6.hw.view;
+package org.example.lesson5.hw.view;
 
-import org.example.lesson6.hw.controller.ConCom;
-import org.example.lesson6.hw.controller.ConRac;
-import org.example.lesson6.hw.log.Log;
+import org.example.lesson5.hw.controller.ConCom;
+import org.example.lesson5.hw.controller.ConRac;
+import org.example.lesson5.hw.log.Log;
 
 import java.util.Scanner;
 
