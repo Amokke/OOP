@@ -9,7 +9,6 @@ public class Complex {
         b = num2;
     }
 
-    @Override
     public String toString() {
         return String.format("%f + %fi", a, b);
     }

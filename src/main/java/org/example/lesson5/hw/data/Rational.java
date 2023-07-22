@@ -9,7 +9,6 @@ public class Rational {
         this.num2 = num2;
     }
 
-    @Override
     public String toString() {
         return num1 + "/" + num2;
     }
